@@ -14,7 +14,7 @@
  *  Context: Button on the movies error alert
  *  Max characters: 40
  */
-"movies.load.error.actionButton" = "Okay";
+"movies.actionButton.ok" = "Okay";
 
 /**
  *  Context: Body of the error message shown when the movies fail to load
@@ -23,7 +23,13 @@
 "moviedetails.load.error.body" = "Something went wrong.";
 
 /**
- *  Context: Button on the movies error alert
+ *  Context: Similar Movies title
+ *  Max characters: 150
+ */
+"movies.similar.title" = "Similar Movies";
+
+/**
+ *  Context: Similar Movies View all button
  *  Max characters: 40
  */
-"moviedetails.load.error.actionButton" = "Okay";
+"movies.similar.viewall" = "View all";

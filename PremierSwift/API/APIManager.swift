@@ -28,8 +28,8 @@ final class APIManager {
     
     static let shared = APIManager()
     
-    let host = "https://api.themoviedb.org/3"
-    let apiKey = "e4f9e61f6ffd66639d33d3dde7e3159b"
+    static let host = "https://api.themoviedb.org/3"
+    static let apiKey = "e4f9e61f6ffd66639d33d3dde7e3159b"
     
     private let urlSession: URLSession
     
@@ -56,7 +56,7 @@ final class APIManager {
     }
     
     private func urlRequest<Value>(for request: Request<Value>) -> URLRequest {
-        let url = URL(host, apiKey, request)
+        let url =   URL(APIManager.host, APIManager.apiKey, request)
         var result = URLRequest(url: url)
         result.httpMethod = request.method.rawValue
         result.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData

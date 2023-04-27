@@ -1,10 +1,10 @@
 import UIKit
 
-final class MovieDetailsDisplayViewController: UIViewController {
+private class MovieDetailsDisplayViewController: UIViewController {
     
-    let movieDetails: MovieDetails
+    private let movieDetails: MovieDetails
     
-    init(movieDetails: MovieDetails) {
+    private init(movieDetails: MovieDetails) {
         self.movieDetails = movieDetails
         super.init(nibName: nil, bundle: nil)
     }
@@ -105,4 +105,6 @@ final class MovieDetailsDisplayViewController: UIViewController {
     }
     
 }
+
+
 
