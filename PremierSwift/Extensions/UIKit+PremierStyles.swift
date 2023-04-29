@@ -9,7 +9,7 @@ extension UIColor {
     }
     
     enum Background {
-        static let main: UIColor = UIColor.whiteSmoke
+        static let whiteSmoke: UIColor = UIColor(named: "whiteSmoke") ?? UIColor.whiteSmoke
         static let charcoal: UIColor = UIColor.charcoal
     }
     

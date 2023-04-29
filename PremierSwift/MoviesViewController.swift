@@ -90,7 +90,7 @@ final class MoviesViewController: UITableViewController, UISearchResultsUpdating
         let searchTextField = searchViewController.searchBar.searchTextField
         searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [.font: UIFont.Body.medium, .foregroundColor: UIColor.Text.charcoal])
         searchTextField.font = UIFont(name: "Poppins-Regular", size: 16)
-        searchTextField.backgroundColor = UIColor(red: 248 / 255.0, green: 248 / 255.0, blue: 248 / 255.0, alpha: 1)
+        searchTextField.backgroundColor = UIColor.Background.whiteSmoke
         searchTextField.borderStyle = .none
         searchTextField.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
         searchTextField.layer.borderWidth = 1.0
