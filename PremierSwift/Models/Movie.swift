@@ -7,6 +7,7 @@ struct Movie: Decodable {
     let overview: String
     let posterPath: String?
     let voteAverage: Double
+    let genreIds: [Int]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -14,12 +15,17 @@ struct Movie: Decodable {
         case overview
         case posterPath = "poster_path"
         case voteAverage = "vote_average"
+        case genreIds = "genre_ids"
     }
     
 }
 
+
 extension Movie {
     static var topRated: Request<Page<Movie>> {
         return Request(method: .get, path: "/movie/top_rated", pars: [:])
+    }
+    static func similarMovies(for movie: Movie) -> Request<Page<Movie>>{
+        return Request(method: .get, path: "/movie/\(movie.id)/similar")
     }
 }

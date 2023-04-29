@@ -2,18 +2,61 @@ import UIKit
 
 final class MovieCell: UITableViewCell {
     
-    let columnSpacing: CGFloat = 20
-    let posterSize = CGSize(width: 92, height: 134)
+    static private let columnSpacing: CGFloat = 16
+    private let posterSize = CGSize(width: 92, height: 134)
     
-    let coverImage = UIImageView()
-    let tagView = TagView()
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
+    let tagView : TagView = TagView()
     
-    let textStackView = UIStackView()
-    let imageStackView = UIStackView()
-    let containerStackView = UIStackView()
+    let coverImage : UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        img.layer.cornerRadius = 8
+        img.layer.masksToBounds = true
+        return img
+    }()
     
+    let titleLabel : UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.Heading.small
+        lbl.textColor = UIColor.Text.charcoal
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
+        return lbl
+    }()
+    
+    let descriptionLabel : UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont.Body.small
+        lbl.textColor = UIColor.Text.grey
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
+        return lbl
+    }()
+    
+    let textStackView : UIStackView  = {
+        let stcView =  UIStackView()
+        stcView.spacing = 4
+        stcView.alignment = .leading
+        stcView.axis = .vertical
+        return stcView
+    }()
+    
+    let imageStackView : UIStackView  = {
+        let stcView =  UIStackView()
+        stcView.spacing = 10
+        stcView.alignment = .leading
+        stcView.axis = .vertical
+        return stcView
+    }()
+    
+    let containerStackView : UIStackView  = {
+        let stcView =  UIStackView()
+        stcView.spacing = columnSpacing
+        stcView.alignment = .top
+        stcView.translatesAutoresizingMaskIntoConstraints = false
+        return stcView
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
@@ -26,34 +69,12 @@ final class MovieCell: UITableViewCell {
     
     private func commonInit() {
         layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        titleLabel.font = UIFont.Heading.small
-        titleLabel.textColor = UIColor.Text.charcoal
-        titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = .byWordWrapping
-        
-        descriptionLabel.font = UIFont.Body.small
-        descriptionLabel.textColor = UIColor.Text.grey
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.lineBreakMode = .byWordWrapping
-        
-        coverImage.contentMode = .scaleAspectFit
-        coverImage.layer.cornerRadius = 8
-        coverImage.layer.masksToBounds = true
-        
-        textStackView.spacing = 4
-        textStackView.alignment = .leading
-        textStackView.axis = .vertical
-        
-        imageStackView.spacing = 10
-        imageStackView.alignment = .leading
-        imageStackView.axis = .vertical
-        
-        containerStackView.spacing = columnSpacing
-        containerStackView.alignment = .top
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        
         setupViewsHierarchy()
         setupConstraints()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
     
     func setupViewsHierarchy() {

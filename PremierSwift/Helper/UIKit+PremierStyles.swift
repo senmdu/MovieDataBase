@@ -3,7 +3,7 @@ import UIKit
 extension UIColor {
     
     enum Text {
-        static let charcoal: UIColor = UIColor.charcoal
+        static let charcoal: UIColor =  UIColor(named: "charcoal") ?? UIColor.charcoal
         static let grey: UIColor = UIColor.grey
         static let white: UIColor = UIColor.white
     }
@@ -29,6 +29,13 @@ extension UIFont {
     enum Heading {
         static var medium: UIFont = UIFont(name: "Poppins-SemiBold", size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .semibold)
         static let small: UIFont = UIFont(name: "Poppins-SemiBold", size: 22) ?? UIFont.systemFont(ofSize: 22, weight: .semibold)
+        
+    }
+    
+    enum Carosul {
+        static let title: UIFont = UIFont(name: "Poppins-SemiBold", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .semibold)
+        static let header: UIFont = UIFont(name: "Poppins-SemiBold", size: 18) ?? UIFont.systemFont(ofSize: 18, weight: .semibold)
+        static var subtitle: UIFont = UIFont(name: "Poppins-Regular", size: 12) ?? UIFont.systemFont(ofSize: 12, weight: .regular)
     }
     
     enum Body {
