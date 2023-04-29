@@ -5,7 +5,7 @@ enum MoviesListViewType {
     case similar
 }
 
-final class MoviesViewController: UITableViewController, UISearchResultsUpdating {
+final class MoviesViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     private var movies = [Movie]() {
         didSet {
@@ -30,17 +30,25 @@ final class MoviesViewController: UITableViewController, UISearchResultsUpdating
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private var searchResultsController : SearchResultsViewController? {
+        self.searchViewController.searchResultsController as? SearchResultsViewController
+    }
 
-    let searchViewController = UISearchController(searchResultsController: SearchResultsViewController())
+    lazy var searchViewController : UISearchController = {
+        let controller = UISearchController(searchResultsController: SearchResultsViewController())
+        controller.searchResultsUpdater = self
+        return controller
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadUI()
         setupTableView()
-        configureSearchBar()
         
         if self.pageType == .top {
+            configureSearchBar()
             Genres.fetchGenres() //Fetching geres strings
             fetchTopMovies()
         }
@@ -73,25 +81,27 @@ final class MoviesViewController: UITableViewController, UISearchResultsUpdating
 
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
-        searchViewController.searchResultsUpdater = self
-        
+    private func configureSearchBar() {
+    
         navigationItem.searchController = searchViewController
         navigationItem.hidesSearchBarWhenScrolling = false
-        
         definesPresentationContext = true
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", pars: ["query": searchController.searchBar.text!])
-        APIManager.shared.execute(request, completion: { result in
-            if case .success(let page) = result {
-                DispatchQueue.main.async {
-                    (searchController.searchResultsController as! SearchResultsViewController).movies = page.results
-                }
-            }
-        })
+        
+        let searchTextField = searchViewController.searchBar.searchTextField
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [.font: UIFont.Body.medium, .foregroundColor: UIColor.Text.charcoal])
+        searchTextField.font = UIFont(name: "Poppins-Regular", size: 16)
+        searchTextField.backgroundColor = UIColor(red: 248 / 255.0, green: 248 / 255.0, blue: 248 / 255.0, alpha: 1)
+        searchTextField.borderStyle = .none
+        searchTextField.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
+        searchTextField.layer.borderWidth = 1.0
+        searchTextField.layer.cornerRadius = 8
+        
+        searchViewController.searchBar.setLeftImage(UIImage(named: "Search"))
+        searchViewController.searchBar.barTintColor = .clear
+        searchViewController.searchBar.setImage(UIImage(named: "Filter"), for: .bookmark, state: .normal)
+        searchViewController.searchBar.showsBookmarkButton = true
+        searchViewController.searchBar.delegate = self
+        searchViewController.searchBar.tintColor = UIColor.Brand.popsicle40
     }
     
     @objc func textSizeChanged() {
@@ -124,30 +134,16 @@ extension MoviesViewController {
         }
     }
     
-    func showError() {
-        let alertController = UIAlertController(title: "", message: LocalizedString(key: "movies.load.error.body"), preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: LocalizedString(key: "movies.load.error.actionButton"), style: .default, handler: nil)
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    private func configureSearchBar() {
-    
-        let searchTextField = searchViewController.searchBar.searchTextField
-        searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [.font: UIFont.Body.medium, .foregroundColor: UIColor.Text.charcoal])
-        searchTextField.font = UIFont(name: "Poppins-Regular", size: 16)
-        searchTextField.backgroundColor = UIColor(red: 248 / 255.0, green: 248 / 255.0, blue: 248 / 255.0, alpha: 1)
-        searchTextField.borderStyle = .none
-        searchTextField.layer.borderColor = UIColor.black.withAlphaComponent(0.08).cgColor
-        searchTextField.layer.borderWidth = 1.0
-        searchTextField.layer.cornerRadius = 8
-        
-        searchViewController.searchBar.setLeftImage(UIImage(named: "Search"))
-        searchViewController.searchBar.barTintColor = .clear
-        searchViewController.searchBar.setImage(UIImage(named: "Filter"), for: .bookmark, state: .normal)
-        searchViewController.searchBar.showsBookmarkButton = true
-        searchViewController.searchBar.delegate = self
-        searchViewController.searchBar.tintColor = UIColor.Brand.popsicle40
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let query = searchController.searchBar.text else {return}
+        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", params: ["query": query])
+        APIManager.shared.execute(request, completion: { [weak self] result in
+            if case .success(let page) = result {
+                PSDispatchOnMainThread {
+                    self?.searchResultsController?.movies = page.results
+                }
+            }
+        })
     }
 }
 

@@ -10,10 +10,10 @@ struct Request<Value> {
     var path: String
     var queryParams: [String: String]
     
-    init(method: Method = .get, path: String, pars: [String: String]) {
+    init(method: Method = .get, path: String, params: [String: String] = [:]) {
         self.method = method
         self.path = path
-        self.queryParams = pars
+        self.queryParams = params
     }
     
 }

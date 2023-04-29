@@ -23,7 +23,7 @@ struct Movie: Decodable {
 
 extension Movie {
     static var topRated: Request<Page<Movie>> {
-        return Request(method: .get, path: "/movie/top_rated", pars: [:])
+        return Request(method: .get, path: "/movie/top_rated")
     }
     static func similarMovies(for movie: Movie) -> Request<Page<Movie>>{
         return Request(method: .get, path: "/movie/\(movie.id)/similar")

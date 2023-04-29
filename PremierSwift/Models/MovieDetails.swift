@@ -20,6 +20,6 @@ struct MovieDetails: Decodable {
 
 extension MovieDetails {
     static func details(for movie: Movie) -> Request<MovieDetails> {
-        return Request(method: .get, path: "/movie/\(movie.id)", pars: [:])
+        return Request(method: .get, path: "/movie/\(movie.id)")
     }
 }

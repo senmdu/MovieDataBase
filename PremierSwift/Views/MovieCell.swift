@@ -109,7 +109,4 @@ final class MovieCell: UITableViewCell {
         }
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
 }

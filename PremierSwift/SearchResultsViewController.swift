@@ -15,7 +15,6 @@ class SearchResultsViewController: UITableViewController {
         
         tableView.dm_registerClassWithDefaultIdentifier(cellClass: MovieCell.self)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.allowsSelection = false
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(textSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
@@ -34,12 +33,19 @@ extension SearchResultsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MovieCell = tableView.dm_dequeueReusableCellWithDefaultIdentifier()
+        guard let cell: MovieCell = tableView.dm_dequeueReusableCellWithDefaultIdentifier() else {
+            return UITableViewCell()
+        }
         
         let movie = movies[indexPath.row]
         cell.configure(movie)
         
         return cell
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        let viewController = MovieDetailsViewController(movie: movie)
+        self.presentingViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
     
 }

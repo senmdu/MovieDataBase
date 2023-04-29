@@ -30,6 +30,7 @@
 		C225D09429F8C77D00B62125 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C225D09329F8C77D00B62125 /* Helper.swift */; };
 		C225D09829F905D200B62125 /* MovieDetailsDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C225D09729F905D200B62125 /* MovieDetailsDisplayView.swift */; };
 		C225D09B29F908E600B62125 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C225D09A29F908E600B62125 /* UIViewController.swift */; };
+		C256E0DF29FD9554006A2113 /* UIKit+PremierStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C256E0DE29FD9554006A2113 /* UIKit+PremierStyles.swift */; };
 		C29AD05829F99D59006964F1 /* Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29AD05729F99D59006964F1 /* Genres.swift */; };
 		C29AD05929FA17EB006964F1 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D13E748202645CE007D2E54 /* APIManager.swift */; };
 		C29AD05A29FA1926006964F1 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D83123420270F8D0021AC3B /* Request.swift */; };
@@ -78,6 +79,7 @@
 		C225D09329F8C77D00B62125 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C225D09729F905D200B62125 /* MovieDetailsDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsDisplayView.swift; sourceTree = "<group>"; };
 		C225D09A29F908E600B62125 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		C256E0DE29FD9554006A2113 /* UIKit+PremierStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+PremierStyles.swift"; sourceTree = "<group>"; };
 		C29AD05729F99D59006964F1 /* Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genres.swift; sourceTree = "<group>"; };
 		F4348FA3230EDFE300198E80 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		F4D99EFF2281B55D00C20D0E /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		7D13E74520264481007D2E54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C256E0DE29FD9554006A2113 /* UIKit+PremierStyles.swift */,
 				7D13E746202644A9007D2E54 /* CellAdditions.swift */,
 				7D13E74D20264795007D2E54 /* Strings.swift */,
 				7D13E75320264B07007D2E54 /* UIView.swift */,
@@ -361,6 +364,7 @@
 				F4D99F002281B55D00C20D0E /* MovieDetailsViewController.swift in Sources */,
 				C225D09229F8C62800B62125 /* MediaCache.swift in Sources */,
 				C225D09429F8C77D00B62125 /* Helper.swift in Sources */,
+				C256E0DF29FD9554006A2113 /* UIKit+PremierStyles.swift in Sources */,
 				C29AD05829F99D59006964F1 /* Genres.swift in Sources */,
 				F82C2C2622E1FB1A003E8FC4 /* Page.swift in Sources */,
 				7D13E76820265222007D2E54 /* Movie.swift in Sources */,
