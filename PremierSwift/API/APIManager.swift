@@ -18,7 +18,7 @@ extension URL {
         
         for queryParam in request.queryParams
         {
-            let url_query_item = URLQueryItem(name: queryParam.key, value: queryParam.value)
+            let url_query_item = URLQueryItem(name: queryParam.key, value: "\(queryParam.value)")
             queryItems.append(url_query_item)
         }
         

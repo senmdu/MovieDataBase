@@ -25,7 +25,7 @@ extension Movie {
     static var topRated: Request<Page<Movie>> {
         return Request(method: .get, path: "/movie/top_rated")
     }
-    static func similarMovies(for movie: Movie) -> Request<Page<Movie>>{
-        return Request(method: .get, path: "/movie/\(movie.id)/similar")
+    static func similarMovies(for movieId: Int) -> Request<Page<Movie>>{
+        return Request(method: .get, path: "/movie/\(movieId)/similar")
     }
 }

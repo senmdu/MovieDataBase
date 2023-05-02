@@ -8,7 +8,7 @@ struct Request<Value> {
     
     var method: Method
     var path: String
-    var queryParams: [String: String]
+    var queryParams: [String: Any]
     
     init(method: Method = .get, path: String, params: [String: String] = [:]) {
         self.method = method

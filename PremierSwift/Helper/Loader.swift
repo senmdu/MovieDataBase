@@ -90,4 +90,13 @@ extension UIView {
     private func isIndicatorDisplaying() -> Bool {
         viewWithTag(overlayTag) != nil && viewWithTag(activityIndicatorTag) != nil
     }
+    
+    func getFooterViewSpinner() -> UIView {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 100))
+        let spinnerView = UIActivityIndicatorView()
+        spinnerView.center = footerView.center
+        footerView.addSubview(spinnerView)
+        spinnerView.startAnimating()
+        return footerView
+    }
 }

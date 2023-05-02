@@ -22,6 +22,7 @@
 		7D83123520270F8D0021AC3B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D83123420270F8D0021AC3B /* Request.swift */; };
 		7D83123A20271CB90021AC3B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D83123920271CB90021AC3B /* UIImageView.swift */; };
 		7D83123C20271E850021AC3B /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D83123B20271E850021AC3B /* APITests.swift */; };
+		C207C5D629FDA1D600E95F01 /* ImageViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C207C5D529FDA1D600E95F01 /* ImageViewer.swift */; };
 		C20AFC6329FD91EB00CA29CD /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20AFC6129FD91EB00CA29CD /* LoadingViewController.swift */; };
 		C20AFC6429FD91EB00CA29CD /* MovieDetailsDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20AFC6229FD91EB00CA29CD /* MovieDetailsDisplayViewController.swift */; };
 		C20E554129F9297C00D015AB /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E554029F9297C00D015AB /* Loader.swift */; };
@@ -71,6 +72,7 @@
 		7D83123420270F8D0021AC3B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		7D83123920271CB90021AC3B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		7D83123B20271E850021AC3B /* APITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
+		C207C5D529FDA1D600E95F01 /* ImageViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewer.swift; sourceTree = "<group>"; };
 		C20AFC6129FD91EB00CA29CD /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		C20AFC6229FD91EB00CA29CD /* MovieDetailsDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsDisplayViewController.swift; sourceTree = "<group>"; };
 		C20E554029F9297C00D015AB /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				C20E554029F9297C00D015AB /* Loader.swift */,
+				C207C5D529FDA1D600E95F01 /* ImageViewer.swift */,
 				C225D09129F8C62800B62125 /* MediaCache.swift */,
 				C225D09329F8C77D00B62125 /* Helper.swift */,
 			);
@@ -294,6 +297,7 @@
 				TargetAttributes = {
 					F840A5DB1D945CF8009325F7 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 8TRYLS98A4;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -364,6 +368,7 @@
 				F4D99F002281B55D00C20D0E /* MovieDetailsViewController.swift in Sources */,
 				C225D09229F8C62800B62125 /* MediaCache.swift in Sources */,
 				C225D09429F8C77D00B62125 /* Helper.swift in Sources */,
+				C207C5D629FDA1D600E95F01 /* ImageViewer.swift in Sources */,
 				C256E0DF29FD9554006A2113 /* UIKit+PremierStyles.swift in Sources */,
 				C29AD05829F99D59006964F1 /* Genres.swift in Sources */,
 				F82C2C2622E1FB1A003E8FC4 /* Page.swift in Sources */,
@@ -531,10 +536,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8TRYLS98A4;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PremierSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = deliveroo.PremierSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = deliveroo.PremierSwift.senthil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -544,10 +550,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8TRYLS98A4;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PremierSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = deliveroo.PremierSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = deliveroo.PremierSwift.senthil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

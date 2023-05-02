@@ -16,6 +16,11 @@ extension UITableView {
         return dequeueReusableCell(withIdentifier: T.dm_defaultIdentifier) as? T
     }
     
+    func dm_dequeueReusableCellWithDefaultIdentifier<T: UITableViewCell>(for indexPath: IndexPath) -> T? {
+        // swiftlint:disable:next force_cast
+        return dequeueReusableCell(withIdentifier: T.dm_defaultIdentifier, for: indexPath) as? T
+    }
+    
 }
 
 extension UICollectionViewCell {

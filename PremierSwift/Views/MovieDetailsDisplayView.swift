@@ -17,10 +17,11 @@ final class MovieDetailsDisplayView: UIView {
         return scView
     }()
     
-    private let backdropImageView :  UIImageView = {
+    let backdropImageView :  UIImageView = {
         let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFill
+        imgView.contentMode = .scaleAspectFit
         imgView.clipsToBounds = true
+        imgView.isUserInteractionEnabled = true
         imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()

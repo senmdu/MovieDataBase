@@ -22,6 +22,13 @@ extension UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    /**
+                  ImageViewer
+     */
+    public func show(image:UIImage, from touchView: UIView? = nil) {
+        ImageViewer.show(from: self, image: image, touchView: touchView)
+    }
+    
     @objc func didTapNavigationBack(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
