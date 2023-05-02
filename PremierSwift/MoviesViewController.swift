@@ -1,4 +1,30 @@
 import UIKit
+import Foundation
+
+
+final class CompletionHandler<T> {
+    
+    private let closure: (T) -> Void
+    private var cancel = false
+
+    init(_ closure: @escaping (T) -> Void) {
+        self.closure = closure
+    }
+    
+    func block(result: T) {
+        if cancel {
+            return
+        }
+        closure(result)
+    }
+    
+    func cancelBlock() {
+        cancel = true
+    }
+    deinit {
+        print("deinit")
+    }
+}
 
 final class MoviesViewController: UITableViewController, UISearchResultsUpdating {
     
@@ -26,6 +52,7 @@ final class MoviesViewController: UITableViewController, UISearchResultsUpdating
         NotificationCenter.default.addObserver(self, selector: #selector(textSizeChanged), name: UIContentSizeCategory.didChangeNotification, object: nil)
         
         fetchData()
+   
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -37,17 +64,98 @@ final class MoviesViewController: UITableViewController, UISearchResultsUpdating
         
         definesPresentationContext = true
     }
+    var currentQuery = ""
     
     func updateSearchResults(for searchController: UISearchController) {
-        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", pars: ["query": searchController.searchBar.text!])
+        
+ //       searchWay1(searchController)
+        
+        
+//        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchWay2(_:)), object: searchController)
+//
+//        self.perform(#selector(searchWay2(_:)), with: searchController, afterDelay: 0.5)
+        
+         searchWay3(searchController)
+        
+    }
+    
+    func searchWay1(_ searchController:UISearchController) {
+        guard let query = searchController.searchBar.text, !query.isEmpty else {
+            return
+        }
+        
+        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", pars: ["query": query])
+        currentQuery = query
+
         APIManager.shared.execute(request, completion: { result in
-            if case .success(let page) = result {
+            if case .success(let  page) = result {
                 DispatchQueue.main.async {
-                    (searchController.searchResultsController as! SearchResultsViewController).movies = page.results
+                    if query == self.currentQuery {
+                        (searchController.searchResultsController as! SearchResultsViewController).movies = page.results
+                    }
                 }
+                print("query: \(query)")
+                print("curent query: \(self.currentQuery)")
+            }
+        })
+        
+    }
+    
+
+    @objc func searchWay2(_ searchController:UISearchController) {
+        guard let query = searchController.searchBar.text, !query.isEmpty else {
+            return
+        }
+        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", pars: ["query": query])
+        currentQuery = query
+
+        APIManager.shared.execute(request, completion: { result in
+            if case .success(let  page) = result {
+                DispatchQueue.main.async {
+                        (searchController.searchResultsController as! SearchResultsViewController).movies = page.results
+                }
+                print("query: \(query)")
+                print("curent query: \(self.currentQuery)")
             }
         })
     }
+    
+    @objc func searchWay3(_ searchController:UISearchController) {
+        guard let query = searchController.searchBar.text, !query.isEmpty else {
+            return
+        }
+        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", pars: ["query": query])
+        currentQuery = query
+        cancelAll()
+        let searchCompletion : CompletionHandler<Result<Page<Movie>, APIError>> = CompletionHandler{ [weak self] result in
+            if case .success(let  page) = result {
+                DispatchQueue.main.async {
+                        (searchController.searchResultsController as! SearchResultsViewController).movies = page.results
+                }
+                print("query: \(query)")
+                print("curent query: \(self?.currentQuery ?? "")")
+            }
+        }
+        APIManager.shared.execute(request, completion: searchCompletion.block)
+        self.completionHandlers.append(searchCompletion)
+    }
+    
+    func cancelAll() {
+        for block in self.completionHandlers {
+            block.cancelBlock()
+        }
+        self.completionHandlers.removeAll()
+    }
+    
+    var completionHandlers : [CompletionHandler<Result<Page<Movie>, APIError>>] = []
+    
+    
+    
+    
+    
+    
+    
+    
     
     @objc func textSizeChanged() {
         tableView.reloadData()

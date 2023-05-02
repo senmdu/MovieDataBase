@@ -10,7 +10,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.view.backgroundColor = .white
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.navigationBar.barTintColor = .white
-        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.isTranslucent = true
         window!.rootViewController = navigationController
         window!.makeKeyAndVisible()
         return true

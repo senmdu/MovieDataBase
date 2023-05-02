@@ -43,21 +43,25 @@ final class APIManager {
         self.urlSession = urlSession
     }
     
-    func execute<Value: Decodable>(_ request: Request<Value>, completion: @escaping (Result<Value, APIError>) -> Void) {
-        urlSession.dataTask(with: urlRequest(for: request)) { responseData, response, error in
+    func execute<Value: Decodable>(_ request: Request<Value>, completion:  (((Result<Value, APIError>))->Void)?) {
+        let task = urlSession.dataTask(with: urlRequest(for: request)) { responseData, response, error in
             if let data = responseData {
                 let response: Value
                 do {
                     response = try JSONDecoder().decode(Value.self, from: data)
                 } catch {
-                    completion(.failure(.parsingError))
+                    completion?(.failure(.parsingError))
                     return
                 }
-                completion(.success(response))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    completion?(.success(response))
+                }
+
             } else {
-                completion(.failure(.networkError))
+                completion?(.failure(.networkError))
             }
-        }.resume()
+        }
+        task.resume()
     }
     
     private func urlRequest<Value>(for request: Request<Value>) -> URLRequest {
