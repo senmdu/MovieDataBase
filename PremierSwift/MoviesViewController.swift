@@ -5,7 +5,9 @@ enum MoviesListViewType {
     case similar
 }
 
-final class MoviesViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+final class MoviesViewController: UITableViewController {
+    
+    // MARK: - Initilization & UI
     
     private var movies : Page<Movie>?
 
@@ -78,6 +80,9 @@ final class MoviesViewController: UITableViewController, UISearchResultsUpdating
 
     }
     
+    /**
+            Configuring search bar
+     */
     private func configureSearchBar() {
     
         navigationItem.searchController = searchViewController
@@ -131,8 +136,11 @@ extension MoviesViewController {
             }
         }
     }
+    /**
+       Pagignation results
+     */
     
-   func loadMore() {
+    fileprivate func loadMore() {
        guard let dataSource = self.movies, dataSource.canPagignate else {
            return
         }
@@ -157,7 +165,26 @@ extension MoviesViewController {
         }
     }
     
-    func reloadData(_ movies:[Movie]) {
+    /**
+       Search Api
+     */
+    func performSearch(query:String) {
+        APIManager.shared.execute(Movie.search(text: query), completion: { [weak self] result in
+            if case .success(let page) = result {
+                PSDispatchOnMainThread {
+                    self?.searchResultsController?.movies = page.results
+                }
+            }
+        })
+    }
+
+}
+
+// MARK: - Utility Methods
+
+extension MoviesViewController {
+    
+    fileprivate func reloadData(_ movies:[Movie]) {
         guard self.movies != nil else {return}
         let oldSize = self.movies!.results.count
         let newSize = oldSize + movies.count
@@ -173,30 +200,26 @@ extension MoviesViewController {
         self.movies!.isPagigNating = false
         self.tableView.tableFooterView = nil
     }
+}
+
+// MARK: - SearchResultsUpdating & Search Bar Delegate
+extension MoviesViewController : UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text else {return}
-        let request = Request<Page<Movie>>(method: Method.get, path: "/search/movie", params: ["query": query])
-        APIManager.shared.execute(request, completion: { [weak self] result in
-            if case .success(let page) = result {
-                PSDispatchOnMainThread {
-                    self?.searchResultsController?.movies = page.results
-                }
-            }
-        })
+     
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-      
-        if scrollView.contentOffset.y > (tableView.contentSize.height  - scrollView.frame.size.height) && self.movies?.canPagignate == true && self.movies?.isPagigNating == false {
-            self.loadMore()
-        }
-        
-        
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty , self.searchViewController.isActive else {return}
+        self.performSearch(query: searchText)
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        print("Book Mark Clicked")
     }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - TableViewDataSource
 extension MoviesViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -212,16 +235,16 @@ extension MoviesViewController {
             cell.configure(movie)
         }
 
-        
         return cell
     }
     
 }
 
-// MARK: - UITableViewControllerDelegate
+// MARK: - TableViewControllerDelegate
 extension MoviesViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         if let movie = movies?.results[indexPath.row] {
             let viewController = MovieDetailsViewController(movie: movie)
             self.navigationController?.pushViewController(viewController, animated: true)
@@ -230,4 +253,13 @@ extension MoviesViewController {
     }
 }
 
+// MARK: - ScrollView Delegate
 
+extension MoviesViewController {
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > (tableView.contentSize.height  - scrollView.bounds.size.height - footerViewSpinnerHeight) && self.movies?.canPagignate == true && self.movies?.isPagigNating == false {
+            self.loadMore()
+        }
+    }
+}

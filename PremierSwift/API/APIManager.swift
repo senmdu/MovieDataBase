@@ -48,6 +48,7 @@ final class APIManager {
             if let data = responseData {
                 let response: Value
                 do {
+                   
                     response = try JSONDecoder().decode(Value.self, from: data)
                 } catch {
                     completion(.failure(.parsingError))

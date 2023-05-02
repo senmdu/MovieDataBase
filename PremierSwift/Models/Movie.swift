@@ -28,4 +28,7 @@ extension Movie {
     static func similarMovies(for movieId: Int) -> Request<Page<Movie>>{
         return Request(method: .get, path: "/movie/\(movieId)/similar")
     }
+    static func search(text:String) -> Request<Page<Movie>> {
+        return Request<Page<Movie>>(method: Method.get, path: "/search/movie", params: ["query": text])
+    }
 }

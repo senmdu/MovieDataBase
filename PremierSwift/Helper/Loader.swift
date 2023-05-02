@@ -10,6 +10,7 @@ import UIKit
 
 fileprivate let overlayTag: Int = -999
 fileprivate let activityIndicatorTag: Int = -1000
+public let footerViewSpinnerHeight : CGFloat = 100
 
 extension UIViewController {
     private var overlayContainerView: UIView {
@@ -92,7 +93,7 @@ extension UIView {
     }
     
     func getFooterViewSpinner() -> UIView {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 100))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: footerViewSpinnerHeight))
         let spinnerView = UIActivityIndicatorView()
         spinnerView.center = footerView.center
         footerView.addSubview(spinnerView)

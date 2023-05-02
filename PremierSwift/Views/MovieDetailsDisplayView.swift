@@ -146,7 +146,12 @@ final class MovieDetailsDisplayView: UIView {
      Configuring `MovieDetails` 
      */
     func configure(movieDetails: MovieDetails) {
-        backdropImageView.dm_setImage(backdropPath: movieDetails.backdropPath)
+        if let backDropImage = movieDetails.backdropPath {
+            backdropImageView.dm_setImage(backdropPath: backDropImage)
+        }else if let posterImage = movieDetails.posterPath {
+            backdropImageView.dm_setImage(posterPath: posterImage)
+        }
+       
         
         titleLabel.text = movieDetails.title
         

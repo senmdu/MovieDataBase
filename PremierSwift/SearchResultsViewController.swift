@@ -33,7 +33,7 @@ extension SearchResultsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: MovieCell = tableView.dm_dequeueReusableCellWithDefaultIdentifier() else {
+        guard let cell: MovieCell = tableView.dm_dequeueReusableCellWithDefaultIdentifier(for: indexPath) else {
             return UITableViewCell()
         }
         
@@ -43,6 +43,7 @@ extension SearchResultsViewController {
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let movie = movies[indexPath.row]
         let viewController = MovieDetailsViewController(movie: movie)
         self.presentingViewController?.navigationController?.pushViewController(viewController, animated: true)

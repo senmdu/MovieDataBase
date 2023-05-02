@@ -96,7 +96,7 @@ private class MovieDetailsDisplayViewController: UIViewController {
         }
         
         func configure(movieDetails: MovieDetails) {
-            backdropImageView.dm_setImage(backdropPath: movieDetails.backdropPath)
+            backdropImageView.dm_setImage(backdropPath: movieDetails.backdropPath!)
             
             titleLabel.text = movieDetails.title
             
